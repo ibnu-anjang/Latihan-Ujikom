@@ -9,3 +9,15 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Zero distortion aspect-ratio helper */
+.media-card-img {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.aspect-16-10 {
+    aspect-ratio: 16 / 10;
+}

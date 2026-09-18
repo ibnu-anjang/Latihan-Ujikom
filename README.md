@@ -47,13 +47,14 @@ Aplikasi ini memadukan **Landing Page publik modern** yang informatif untuk calo
 
 ## ✨ Fitur Unggulan
 
-### 🌐 1. Landing Page Publik
-- **Tampilan Korporat Modern:** Desain profesional bernuansa biru maritim dengan tipografi bersih (*Inter* & *Instrument Sans*).
-- **Statistik Dinamis:** Menghitung otomatis total armada aktif, persentase keberhasilan pengiriman, dan pengalaman operasional dari database.
-- **Katalog Layanan Terpadu:** Informasi lengkap layanan Angkutan Darat, Kargo Udara, Pergudangan Modern, dan Kargo Laut.
-- **Galeri Foto Operasional:** Menampilkan foto-foto dokumentasi gudang, terminal udara, dan armada secara terstruktur berdasarkan kategori.
-- **Profil Tim & Pimpinan:** Mengenalkan jajaran tim manajemen logistik lengkap dengan foto dan jabatan.
-- **Formulir Kontak & Integrasi Lokasi:** Saluran komunikasi terintegrasi untuk permintaan penawaran harga pengiriman.
+### 🌐 1. Landing Page Publik (100% Dinamis & Modern)
+- **Pelacakan Resi Real-Time (Cek Resi Dinamis):** Widget interaktif untuk melacak 100 data pengiriman secara langsung via nomor resi (cth: `IBN-0001`, `IBN-0002`) atau nama pelanggan, lengkap dengan visual *4-step progress timeline* (Diterima &rarr; Gudang &rarr; Transit &rarr; Tiba).
+- **Showcase Armada Dinamis:** Menampilkan katalog 55 unit armada dari database lengkap dengan foto berasio presisi (16:10), nomor plat kendaraan, kapasitas tonase, nama supir, dan filter tab interaktif (Truk Berat, Truk Box, Mobil Van).
+- **Katalog Layanan Dinamis:** Data layanan kargo darat, udara, dan pergudangan yang bersumber langsung dari database dengan tautan konsultasi instan.
+- **Galeri Fasilitas & Infrastruktur Presisi:** Dokumentasi operasional beresolusi tinggi dengan rasio aspek standar 16:10 (bebas distorsi / tidak terpotong aneh), filter kategori fasilitas, serta fitur *Lightbox Modal Preview* saat gambar diklik.
+- **Struktur Tim Pimpinan Dinamis:** Profil dewan direksi dan manajer operasional terhubung langsung dari database *Anggota Tim*.
+- **Statistik & Metrik Otomatis:** Counter pengalaman, jumlah armada aktif, total pengiriman sukses, dan tingkat ketepatan waktu (SLA) terhitung otomatis dari MariaDB.
+- **Desain Korporat & Responsif:** Menggunakan palet biru maritim (#1e3a8a), tipografi *Instrument Sans* & *Inter*, serta navigasi ramah mobile dengan drawer menu responsif.
 
 ### 🛡️ 2. Panel Admin (Filament v3)
 - **Dasbor Analitik Real-time:** Widget ringkasan total pengiriman, armada beroperasi, dan metrik performa.
