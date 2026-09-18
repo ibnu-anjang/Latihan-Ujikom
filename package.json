@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@penpot-export/cli": "^0.1.2",
+    "@penpot/mcp": "^2.15.4"
+  }
+}

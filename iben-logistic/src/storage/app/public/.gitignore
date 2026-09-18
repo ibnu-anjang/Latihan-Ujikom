@@ -1,0 +1,8 @@
+*
+!.gitignore
+!anggota-tim/
+!anggota-tim/*
+!armada/
+!armada/*
+!galeri/
+!galeri/*

@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+vendor/
+iben-logistic/src/node_modules/
+iben-logistic/src/vendor/
+
+# Environment files
+.env
+.env.backup
+.env.production
+iben-logistic/.env
+iben-logistic/src/.env
+
+# Laravel storage & cache
+iben-logistic/src/storage/*.key
+iben-logistic/src/storage/framework/cache/*
+!iben-logistic/src/storage/framework/cache/.gitignore
+iben-logistic/src/storage/framework/sessions/*
+!iben-logistic/src/storage/framework/sessions/.gitignore
+iben-logistic/src/storage/framework/views/*
+!iben-logistic/src/storage/framework/views/.gitignore
+iben-logistic/src/storage/logs/*.log
+!iben-logistic/src/storage/logs/.gitignore
+iben-logistic/src/bootstrap/cache/*.php
+!iben-logistic/src/bootstrap/cache/.gitignore
+
+# Public build & uploaded storage link
+iben-logistic/src/public/hot
+iben-logistic/src/public/storage
+
+# IDE & Editor files
+.commandcode/
+.idea/
+.vscode/
+.fleet/
+.zed/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Test & Misc
+.phpunit.result.cache
+iben-logistic/src/.phpunit.result.cache
+scratch/

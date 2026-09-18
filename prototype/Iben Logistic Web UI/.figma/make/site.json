@@ -1,0 +1,10 @@
+{
+  "description": "A professional logistics website showcasing services, fleet, team, and contact options with an integrated admin panel for managing service offerings.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

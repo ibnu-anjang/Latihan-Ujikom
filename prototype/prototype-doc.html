@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dokumen Prototype UI/UX - Iben Logistic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            primary: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            corporate: {
+              navy: '#0f172a',
+              blue: '#1e3a8a',
+              subtle: '#f8fafc',
+              border: '#e2e8f0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .page-sheet {
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #e2e8f0;
+    }
+    .page-sheet {
+      width: 297mm;
+      height: 209.5mm;
+      position: relative;
+      background: #ffffff;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10mm 14mm 8mm 14mm;
+      margin: 0 auto;
+    }
+    .browser-frame {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+    .browser-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Technical blueprint grid pattern */
+    .bg-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+    .badge-filament {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800">
+
+  <!-- SVG Icon Library Definitions (Hidden) -->
+  <svg class="hidden" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Heroicon square-3-stack-3d -->
+      <g id="icon-service">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+      </g>
+      <!-- Heroicon truck -->
+      <g id="icon-truck">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25H4.875c-.621 0-1.125.504-1.125 1.125v7.875m10.5-9v3.75h4.125M3.75 15.75h10.5" />
+      </g>
+      <!-- Heroicon clipboard-document-check -->
+      <g id="icon-shipping">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.09 1.976 1.053 1.976 2.188V8.25M8.25 19.5h10.5a2.25 2.25 0 002.25-2.25V8.25a2.25 2.25 0 00-2.25-2.25H8.25A2.25 2.25 0 006 8.25v9a2.25 2.25 0 002.25 2.25zM10.5 13.5l2.25 2.25 4.5-4.5" />
+      </g>
+      <!-- Heroicon user-group -->
+      <g id="icon-team">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+      </g>
+      <!-- Heroicon home/dashboard -->
+      <g id="icon-dashboard">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      </g>
+      <!-- Heroicon search -->
+      <g id="icon-search">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      </g>
+      <!-- Heroicon funnel/filter -->
+      <g id="icon-filter">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3c2.755 0 5.455.232 8.083.678.53.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.386-1.007.917-1.096A48.32 48.32 0 0112 3z" />
+      </g>
+      <!-- Heroicon plus -->
+      <g id="icon-plus">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
+      </g>
+      <!-- Heroicon pencil -->
+      <g id="icon-pencil">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+      </g>
+      <!-- Heroicon chevron down -->
+      <g id="icon-chevron-down">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ================= PAGE 1: COVER (ENGINEERING SPECIFICATION STYLE) ================= -->
+  <section class="page-sheet bg-[#090d16] text-white bg-grid">
+    <!-- Corporate Header Metadata -->
+    <div class="relative z-10 flex justify-between items-center border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center font-display font-extrabold text-slate-950 text-sm tracking-tight shadow-sm">
+          IL
+        </div>
+        <div>
+          <div class="font-display font-bold text-sm tracking-wider text-white">PT NUSANTARA TRANSLOGISTIK</div>
+          <div class="text-[10px] text-slate-400 font-mono">IBEN LOGISTIC &bull; LOGISTICS MANAGEMENT SYSTEM</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-[10px] px-2.5 py-1 bg-slate-800/80 border border-slate-700 text-slate-300 rounded">
+          DOC ID: SPEC-UIUX-2026-RPL
+        </span>
+        <span class="font-mono text-[10px] px-2.5 py-1 bg-emerald-950/60 border border-emerald-800 text-emerald-400 rounded">
+          STATUS: VERIFIED
+        </span>
+      </div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="relative z-10 my-auto py-2">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-slate-800/80 border border-slate-700 text-slate-300 text-[11px] font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        UJI KOMPETENSI KEAHLIAN (UKK) REKAYASA PERANGKAT LUNAK
+      </div>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight mb-2 tracking-tight">
+        Spesifikasi Rancangan Antarmuka (UI/UX Specification)<br>
+        Sistem Informasi Manajemen Ekspedisi Logistik
+      </h1>
+      <p class="text-slate-400 text-xs max-w-2xl leading-relaxed mb-6 font-normal">
+        Dokumen teknis rancangan antarmuka portal publik dan panel operasional backend. Dibangun dengan pendekatan <em>Design System Filament PHP v3</em> untuk memastikan integritas dan konsistensi 100% terhadap implementasi kode Laravel 12.
+      </p>
+
+      <!-- Metadata Box -->
+      <div class="grid grid-cols-4 gap-3 max-w-3xl">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3">
+          <div class="text-[10px] text-slate-500 font-mono uppercase tracking-wider mb-1">Pengembang / Siswa</div>
+          <div class="text-base font-display font-bold text-white">Ibnu Anjang</div>
+          <div class="text-[10px] text-amber-400 font-mono mt-0.5">Peserta Ujikom RPL</div>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3">
+          <div class="text-[10px] text-slate-500 font-mono uppercase tracking-wider mb-1">Panel Admin Engine</div>
+          <div class="text-base font-display font-bold text-white">Filament PHP v3</div>
+          <div class="text-[10px] text-slate-400 font-mono mt-0.5">Livewire 3 + Tailwind v3</div>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3">
+          <div class="text-[10px] text-slate-500 font-mono uppercase tracking-wider mb-1">Framework Backend</div>
+          <div class="text-base font-display font-bold text-white">Laravel 12</div>
+          <div class="text-[10px] text-slate-400 font-mono mt-0.5">Eloquent ORM + MySQL</div>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3">
+          <div class="text-[10px] text-slate-500 font-mono uppercase tracking-wider mb-1">Standar Desain</div>
+          <div class="text-base font-display font-bold text-white">Tailwind UI</div>
+          <div class="text-[10px] text-slate-400 font-mono mt-0.5">Clean SaaS Standard</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Control Footer -->
+    <div class="relative z-10 flex justify-between items-center pt-2.5 border-t border-slate-800 text-[10px] font-mono text-slate-500">
+      <div>Sistem Manajemen Logistik Iben Logistic &bull; SMK Rekayasa Perangkat Lunak</div>
+      <div>Revisi: 1.0 &bull; Tahun Ajaran 2026/2027</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 2: ARCHITECTURE & DESIGN SYSTEM ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-2 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 01 / System Design</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Arsitektur Desain & Filament UI System</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200">
+        Traceability: Exact 1:1
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-3.5 flex-1">
+      <!-- Left Column -->
+      <div class="col-span-5 flex flex-col justify-between space-y-2.5">
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <h3 class="text-xs font-display font-bold text-slate-800 mb-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Pembagian Aktor Sistem
+          </h3>
+          <div class="space-y-2 text-xs text-slate-600">
+            <div class="border-l-2 border-amber-500 pl-2 py-0.5">
+              <span class="font-semibold text-slate-900 block text-[11px]">1. Publik (Client Web)</span>
+              Akses informasi profil perusahaan, tracking tarif estimasi, melihat display kesiapan armada, dan katalog layanan.
+            </div>
+            <div class="border-l-2 border-slate-800 pl-2 py-0.5">
+              <span class="font-semibold text-slate-900 block text-[11px]">2. Petugas Admin Operasional</span>
+              Akses login Filament untuk mengelola status pengiriman barang, logistik armada, master layanan, dan personel staf.
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <h3 class="text-xs font-display font-bold text-slate-800 mb-1.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Menghindari AI Slop pada UI
+          </h3>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            UI generik buatan AI sering kali menggunakan ikon emoji yang tidak konsisten dan ornamen dekoratif yang mustahil diimplementasikan. Desain ini secara ketat menggunakan <strong>Heroicons SVG bawaan Filament</strong>, palet warna Tailwind netral (Zinc & Slate), dan komponen fungsional yang ada pada controller Laravel.
+          </p>
+        </div>
+
+        <div class="bg-slate-100 border border-slate-200 rounded-lg p-2.5">
+          <div class="text-[10px] font-mono font-bold text-slate-800 mb-0.5">Prinsip Ergonomi Panel:</div>
+          <p class="text-[10px] text-slate-600 leading-normal">
+            Navigasi terfokus pada efisiensi kerja operator gudang: tabel data dengan density optimal, input form berbasis modal dialog cepat, dan indikator status berkode warna.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-span-7 bg-slate-50 border border-slate-200 rounded-lg p-3 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-2.5">
+            <span class="text-xs font-display font-bold text-slate-800">Token Warna & Komponen Filament</span>
+            <span class="text-[10px] font-mono text-slate-400">Tailwind v3 Token System</span>
+          </div>
+
+          <!-- Color Tokens -->
+          <div class="grid grid-cols-4 gap-2 mb-3">
+            <div class="bg-white p-2 rounded border border-slate-200 text-center">
+              <div class="h-5 w-full bg-slate-900 rounded mb-1"></div>
+              <div class="text-[10px] font-semibold text-slate-800">Sidebar Slate</div>
+              <div class="text-[9px] text-slate-400 font-mono">#0F172A</div>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200 text-center">
+              <div class="h-5 w-full bg-amber-500 rounded mb-1"></div>
+              <div class="text-[10px] font-semibold text-slate-800">Primary Amber</div>
+              <div class="text-[9px] text-slate-400 font-mono">#F59E0B</div>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200 text-center">
+              <div class="h-5 w-full bg-slate-100 border border-slate-200 rounded mb-1"></div>
+              <div class="text-[10px] font-semibold text-slate-800">Canvas Gray</div>
+              <div class="text-[9px] text-slate-400 font-mono">#F8FAFC</div>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200 text-center">
+              <div class="h-5 w-full bg-blue-900 rounded mb-1"></div>
+              <div class="text-[10px] font-semibold text-slate-800">Brand Navy</div>
+              <div class="text-[9px] text-slate-400 font-mono">#1E3A8A</div>
+            </div>
+          </div>
+
+          <!-- Status Badges Standard -->
+          <div class="text-[11px] font-semibold text-slate-700 mb-1.5">Standar Badge Status Filament:</div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Selesai / Tersedia / Aktif
+            </span>
+            <span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Dalam Proses / Beroperasi
+            </span>
+            <span class="badge-filament bg-rose-50 text-rose-700 border border-rose-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Tertunda / Perbaikan / Nonaktif
+            </span>
+            <span class="badge-filament bg-sky-50 text-sky-700 border border-sky-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> Kargo Angkutan
+            </span>
+          </div>
+
+          <!-- Component Grid -->
+          <div class="text-[11px] font-semibold text-slate-700 mb-1.5">Arsitektur Komponen Panel:</div>
+          <div class="grid grid-cols-3 gap-2 text-[10px]">
+            <div class="bg-white p-2 rounded border border-slate-200">
+              <div class="font-bold text-slate-800">Sidebar Nav</div>
+              <div class="text-slate-500 mt-0.5 leading-snug">Menu hierarki statis dengan icon Heroicons dan role badge.</div>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200">
+              <div class="font-bold text-slate-800">Filament Table</div>
+              <div class="text-slate-500 mt-0.5 leading-snug">Filter popover, bulk actions, search debounced, dan pagination.</div>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200">
+              <div class="font-bold text-slate-800">Form Schema</div>
+              <div class="text-slate-500 mt-0.5 leading-snug">Grid 2 kolom dengan validasi client & server yang selaras.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Design System Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 02</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 3: PUBLIC WEB - HERO & PROFIL ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 02 / Public Frontend</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Portal Publik: Header Navigasi & Hero Section</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-200">
+        resources/views/welcome.blade.php
+      </div>
+    </div>
+
+    <!-- Browser Mockup -->
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/
+        </div>
+      </div>
+
+      <div class="p-3 bg-white flex-1 overflow-hidden flex flex-col justify-between">
+        <!-- Clean Professional Navbar -->
+        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-slate-900 rounded flex items-center justify-center text-white font-display font-bold text-[10px]">IL</div>
+            <div>
+              <div class="font-display font-bold text-xs text-slate-900 leading-none">Iben Logistic</div>
+              <div class="text-[8px] font-semibold text-slate-400 tracking-wider uppercase">Nusantara Ekspedisi</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-5 text-[11px] font-medium text-slate-600">
+            <span class="text-slate-900 font-semibold">Beranda</span>
+            <span>Tentang</span>
+            <span>Layanan</span>
+            <span>Armada</span>
+            <span>Kontak</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="bg-slate-900 text-white text-[10px] font-medium px-2.5 py-1 rounded">Portal Admin</span>
+          </div>
+        </div>
+
+        <!-- Realistic Corporate Hero Banner -->
+        <div class="bg-slate-900 text-white rounded-lg p-4 my-1.5 flex justify-between items-center border border-slate-800">
+          <div class="max-w-md">
+            <div class="inline-block px-2 py-0.5 rounded bg-slate-800 text-amber-400 text-[9px] font-mono mb-1.5 border border-slate-700">
+              B2B & B2C FREIGHT FORWARDING
+            </div>
+            <h3 class="text-base font-display font-bold text-white leading-tight mb-1.5">
+              Jasa Pengiriman Kargo Terpadu Antar Pulau Seluruh Indonesia
+            </h3>
+            <p class="text-[10px] text-slate-300 leading-relaxed mb-2.5">
+              Layanan distribusi kargo darat, laut, udara, dan pergudangan dengan integrasi manifest operasional tepat waktu.
+            </p>
+            <div class="flex gap-2">
+              <span class="bg-amber-500 text-slate-950 text-[10px] font-semibold px-2.5 py-1 rounded">Minta Penawaran</span>
+              <span class="border border-slate-700 text-slate-300 text-[10px] font-medium px-2.5 py-1 rounded">Katalog Layanan</span>
+            </div>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="grid grid-cols-2 gap-2 w-48 font-mono">
+            <div class="bg-slate-800/80 border border-slate-700 p-2 rounded text-center">
+              <div class="text-sm font-bold text-amber-400">50+</div>
+              <div class="text-[8px] text-slate-400">Unit Armada Truk</div>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700 p-2 rounded text-center">
+              <div class="text-sm font-bold text-emerald-400">99.2%</div>
+              <div class="text-[8px] text-slate-400">On-Time Delivery</div>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700 p-2 rounded text-center">
+              <div class="text-sm font-bold text-slate-200">24 Jam</div>
+              <div class="text-[8px] text-slate-400">Monitoring Manifest</div>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700 p-2 rounded text-center">
+              <div class="text-sm font-bold text-slate-200">34</div>
+              <div class="text-[8px] text-slate-400">Provinsi Terlayani</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corporate Features Grid -->
+        <div class="grid grid-cols-3 gap-2.5 pt-0.5 text-[10px]">
+          <div class="border border-slate-200 rounded p-2 bg-slate-50">
+            <div class="font-semibold text-slate-800">Infrastruktur Terintegrasi</div>
+            <div class="text-[9px] text-slate-500 mt-0.5">Jalur ekspedisi lintas provinsi dengan rute terjadwal setiap hari.</div>
+          </div>
+          <div class="border border-slate-200 rounded p-2 bg-slate-50">
+            <div class="font-semibold text-slate-800">SOP Keamanan Barang</div>
+            <div class="text-[9px] text-slate-500 mt-0.5">Asuransi muatan kargo dan verifikasi fisik segel kontainer.</div>
+          </div>
+          <div class="border border-slate-200 rounded p-2 bg-slate-50">
+            <div class="font-semibold text-slate-800">Update Status Terpadu</div>
+            <div class="text-[9px] text-slate-500 mt-0.5">Terhubung langsung ke Filament Panel untuk tracking pengiriman real-time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> View Blade publik menggunakan layout responsif Tailwind CSS tanpa dependensi library eksternal berlebihan.</div>
+      <div class="text-slate-500">Route::get('/', [WebController::class, 'index'])</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Public Frontend Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 03</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 4: PUBLIC WEB - SERVICES & FLEET ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 02 / Public Frontend</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Portal Publik: Katalog Layanan Kargo & Form Penawaran</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-200">
+        Data Rendering: Eloquent Models
+      </div>
+    </div>
+
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/#services
+        </div>
+      </div>
+
+      <div class="p-3 bg-white flex-1 overflow-hidden flex flex-col justify-between">
+        <div class="text-center mb-1">
+          <h3 class="text-xs font-display font-bold text-slate-900 uppercase tracking-wider">Katalog Layanan Logistik</h3>
+          <p class="text-[9px] text-slate-500 font-mono">Dikelola langsung melalui Filament ServiceResource</p>
+        </div>
+
+        <!-- 4 Services Cards with Vector Heroicons -->
+        <div class="grid grid-cols-4 gap-2 mb-2">
+          <div class="border border-slate-200 rounded-lg p-2.5 bg-slate-50 hover:border-slate-300">
+            <div class="w-6 h-6 rounded bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-truck"/></svg>
+            </div>
+            <div class="font-display font-bold text-xs text-slate-900">Angkutan Darat</div>
+            <p class="text-[9px] text-slate-600 mt-0.5 leading-snug">Pengiriman truk box CDD & tronton fuso trayek Jawa-Sumatera-Bali.</p>
+            <span class="badge-filament bg-slate-200/70 text-slate-700 mt-1.5 font-mono text-[8px]">Harian Terjadwal</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg p-2.5 bg-slate-50 hover:border-slate-300">
+            <div class="w-6 h-6 rounded bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+            </div>
+            <div class="font-display font-bold text-xs text-slate-900">Kargo Udara</div>
+            <p class="text-[9px] text-slate-600 mt-0.5 leading-snug">Layanan kargo maskapai bandara ke bandara untuk paket mendesak prioritas.</p>
+            <span class="badge-filament bg-slate-200/70 text-slate-700 mt-1.5 font-mono text-[8px]">Express Freight</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg p-2.5 bg-slate-50 hover:border-slate-300">
+            <div class="w-6 h-6 rounded bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+            </div>
+            <div class="font-display font-bold text-xs text-slate-900">Kargo Laut</div>
+            <p class="text-[9px] text-slate-600 mt-0.5 leading-snug">Muatan kontainer FCL (Full Container) dan LCL via kapal kargo peti kemas.</p>
+            <span class="badge-filament bg-slate-200/70 text-slate-700 mt-1.5 font-mono text-[8px]">Pelabuhan Utama</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg p-2.5 bg-slate-50 hover:border-slate-300">
+            <div class="w-6 h-6 rounded bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+            </div>
+            <div class="font-display font-bold text-xs text-slate-900">Pergudangan</div>
+            <p class="text-[9px] text-slate-600 mt-0.5 leading-snug">Fasilitas gudang transit sentral, cross-docking, dan tata kelola stok barang.</p>
+            <span class="badge-filament bg-slate-200/70 text-slate-700 mt-1.5 font-mono text-[8px]">Sewa & Cross-dock</span>
+          </div>
+        </div>
+
+        <!-- Fleet Grid & Quote Form -->
+        <div class="grid grid-cols-12 gap-2.5 pt-1 border-t border-slate-100">
+          <div class="col-span-7">
+            <div class="font-semibold text-[10px] text-slate-800 mb-1">Status Ketersediaan Armada Operasional</div>
+            <div class="grid grid-cols-3 gap-1.5">
+              <div class="bg-slate-50 border border-slate-200 rounded p-1.5 text-center">
+                <div class="text-[10px] font-bold text-slate-800">Tronton 3-Axle</div>
+                <div class="text-[8px] text-slate-500 font-mono">25.000 Kg</div>
+                <span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200 text-[8px] mt-0.5">Tersedia</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded p-1.5 text-center">
+                <div class="text-[10px] font-bold text-slate-800">CDD Box Long</div>
+                <div class="text-[8px] text-slate-500 font-mono">5.000 Kg</div>
+                <span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200 text-[8px] mt-0.5">Tersedia</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded p-1.5 text-center">
+                <div class="text-[10px] font-bold text-slate-800">Blind Van</div>
+                <div class="text-[8px] text-slate-500 font-mono">1.200 Kg</div>
+                <span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200 text-[8px] mt-0.5">Beroperasi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-5 bg-slate-50 border border-slate-200 rounded p-2 flex flex-col justify-between">
+            <div>
+              <div class="font-semibold text-[10px] text-slate-900">Form Permintaan Estimasi Tarif</div>
+              <div class="text-[8px] text-slate-500">Perhitungan tarif berdasarkan volume kubikasi & rute tujuan.</div>
+            </div>
+            <div class="space-y-1 my-1">
+              <div class="bg-white border border-slate-200 rounded px-2 py-0.5 text-[8px] text-slate-500 font-mono">PT Pelanggan / Nama Pengirim</div>
+              <div class="bg-white border border-slate-200 rounded px-2 py-0.5 text-[8px] text-slate-500 font-mono">Kota Asal - Kota Tujuan</div>
+            </div>
+            <button class="w-full bg-slate-900 text-white text-[8px] font-medium py-1 rounded">Kalkulasi Tarif Pengiriman</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Listing layanan dan armada terhubung langsung dengan model Eloquent <code>Service</code> dan <code>Armada</code>.</div>
+      <div class="text-slate-500">Model::all() | Blade Foreach</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Public Frontend Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 04</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 5: ADMIN AUTH ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 03 / Admin Authentication</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Autentikasi Administrator (Filament Auth Guard)</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200">
+        URL: /admin/login
+      </div>
+    </div>
+
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/admin/login
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-100 flex-1 flex items-center justify-center">
+        <!-- Authentic Filament Login Card -->
+        <div class="w-80 bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+          <div class="text-center mb-4">
+            <div class="w-9 h-9 bg-amber-500 rounded-lg flex items-center justify-center text-slate-950 font-display font-bold text-sm mx-auto mb-1.5 shadow-sm">
+              IL
+            </div>
+            <h3 class="text-sm font-display font-bold text-slate-900">Iben Logistic</h3>
+            <p class="text-[11px] text-slate-500 font-mono">Sign in to operational panel</p>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-700 mb-1">Email address <span class="text-rose-500">*</span></label>
+              <div class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 bg-white font-mono">
+                admin@ibenlogistic.com
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-[11px] font-medium text-slate-700">Password <span class="text-rose-500">*</span></label>
+              </div>
+              <div class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 bg-white flex justify-between items-center font-mono">
+                <span>&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+                <span class="text-slate-400 text-[10px]">Show</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs pt-0.5">
+              <label class="flex items-center gap-1.5 cursor-pointer text-slate-600 text-[10px]">
+                <input type="checkbox" checked class="rounded border-slate-300 text-amber-500 focus:ring-amber-500">
+                Ingat saya di perangkat ini
+              </label>
+            </div>
+
+            <button class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-1.5 rounded-lg text-xs shadow-sm transition mt-1">
+              Masuk ke Panel Admin
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Menggunakan Filament Panel Provider dengan proteksi throttling rate-limit dan enkripsi password Bcrypt.</div>
+      <div class="text-slate-500">Auth::guard('web') | Session Driver</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Admin Panel Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 05</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 6: ADMIN DASHBOARD ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 03 / Admin Panel</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Dashboard Utama: Filament StatsOverviewWidget & Live Manifest Feed</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200">
+        App\Filament\Widgets\DashboardStats
+      </div>
+    </div>
+
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/admin
+        </div>
+      </div>
+
+      <div class="flex-1 flex overflow-hidden">
+        <!-- Authentic Filament Sidebar -->
+        <div class="w-44 bg-slate-900 text-slate-300 p-2.5 flex flex-col justify-between text-xs border-r border-slate-800">
+          <div>
+            <div class="flex items-center gap-2 pb-2.5 mb-2 border-b border-slate-800">
+              <div class="w-5 h-5 bg-amber-500 rounded font-display font-bold text-slate-950 flex items-center justify-center text-[9px]">IL</div>
+              <span class="font-display font-bold text-white tracking-wide text-xs">Iben Logistic</span>
+            </div>
+
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-dashboard"/></svg>
+                <span>Dashboard</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+                <span>Layanan</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-truck"/></svg>
+                <span>Armada</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+                <span>Pengiriman</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+                <span>Anggota Tim</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800 flex items-center gap-2 text-[10px]">
+            <div class="w-5 h-5 rounded-full bg-slate-700 flex items-center justify-center text-white font-mono text-[8px]">IA</div>
+            <div class="overflow-hidden">
+              <div class="text-white font-medium truncate text-[10px]">Ibnu Anjang</div>
+              <div class="text-slate-500 truncate text-[8px] font-mono">Administrator</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 bg-slate-50 p-3 flex flex-col justify-between overflow-hidden">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <div class="text-[9px] text-slate-500 font-mono">Filament &rsaquo; Dashboard</div>
+              <h3 class="text-xs font-display font-bold text-slate-900 leading-tight">Ringkasan Operasional Logistik</h3>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[9px] bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-mono">Sinkronisasi: Real-time</span>
+            </div>
+          </div>
+
+          <!-- 4 Stat Cards Filament Native with Vector Icons -->
+          <div class="grid grid-cols-4 gap-2 mb-2">
+            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+              <div class="flex justify-between items-center text-slate-500 text-[9px] font-medium mb-0.5">
+                <span>Total Layanan</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+              </div>
+              <div class="text-base font-display font-bold text-slate-900">4</div>
+              <div class="text-[9px] text-blue-600 font-medium mt-0.5 font-mono">4 layanan aktif</div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+              <div class="flex justify-between items-center text-slate-500 text-[9px] font-medium mb-0.5">
+                <span>Total Armada</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-truck"/></svg>
+              </div>
+              <div class="text-base font-display font-bold text-slate-900">8</div>
+              <div class="text-[9px] text-emerald-600 font-medium mt-0.5 font-mono">6 unit siap jalan</div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+              <div class="flex justify-between items-center text-slate-500 text-[9px] font-medium mb-0.5">
+                <span>Total Pengiriman</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+              </div>
+              <div class="text-base font-display font-bold text-slate-900">12</div>
+              <div class="text-[9px] text-amber-600 font-medium mt-0.5 font-mono">3 dalam perjalanan</div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+              <div class="flex justify-between items-center text-slate-500 text-[9px] font-medium mb-0.5">
+                <span>Anggota Tim</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+              </div>
+              <div class="text-base font-display font-bold text-slate-900">5</div>
+              <div class="text-[9px] text-blue-600 font-medium mt-0.5 font-mono">5 staf terdaftar</div>
+            </div>
+          </div>
+
+          <!-- Filament Table Widget for Recent Manifests -->
+          <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs flex-1 flex flex-col justify-between overflow-hidden">
+            <div class="flex justify-between items-center mb-1">
+              <div class="text-[10px] font-display font-bold text-slate-800 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+                <span>Aktivitas Pengiriman Terkini (Live Feed)</span>
+              </div>
+              <span class="text-[9px] text-amber-600 font-semibold cursor-pointer">Buka Pengiriman &rarr;</span>
+            </div>
+            <div class="overflow-hidden border border-slate-100 rounded">
+              <table class="w-full text-left text-[9px]">
+                <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                  <tr>
+                    <th class="p-1 pl-2 font-mono">No. Resi</th>
+                    <th class="p-1">Nama Pelanggan</th>
+                    <th class="p-1">Kota Tujuan</th>
+                    <th class="p-1">Layanan</th>
+                    <th class="p-1">Status</th>
+                    <th class="p-1 text-right pr-2">Tanggal</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-700">
+                  <tr>
+                    <td class="p-1 pl-2 font-mono font-semibold text-slate-900">IBN-JKT-260901</td>
+                    <td class="p-1 font-medium text-slate-800">PT Maju Makmur Sentosa</td>
+                    <td class="p-1">Surabaya, Jawa Timur</td>
+                    <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Angkutan Darat</span></td>
+                    <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">Dalam Proses</span></td>
+                    <td class="p-1 text-right pr-2 text-slate-500 font-mono">11 Sep 2026</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1 pl-2 font-mono font-semibold text-slate-900">IBN-KNO-260902</td>
+                    <td class="p-1 font-medium text-slate-800">CV Nusantara Elektronik</td>
+                    <td class="p-1">Medan, Sumatera Utara</td>
+                    <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Kargo Udara</span></td>
+                    <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200">Selesai</span></td>
+                    <td class="p-1 text-right pr-2 text-slate-500 font-mono">10 Sep 2026</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1 pl-2 font-mono font-semibold text-slate-900">IBN-SMG-260903</td>
+                    <td class="p-1 font-medium text-slate-800">Toko Berkah Abadi</td>
+                    <td class="p-1">Semarang, Jawa Tengah</td>
+                    <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Angkutan Darat</span></td>
+                    <td class="p-1"><span class="badge-filament bg-rose-50 text-rose-700 border border-rose-200">Tertunda</span></td>
+                    <td class="p-1 text-right pr-2 text-slate-500 font-mono">09 Sep 2026</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1 pl-2 font-mono font-semibold text-slate-900">IBN-MKS-260904</td>
+                    <td class="p-1 font-medium text-slate-800">PT Samudera Maritim</td>
+                    <td class="p-1">Makassar, Sulawesi Selatan</td>
+                    <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Kargo Laut</span></td>
+                    <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">Dalam Proses</span></td>
+                    <td class="p-1 text-right pr-2 text-slate-500 font-mono">08 Sep 2026</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="flex justify-between items-center text-[8px] text-slate-400 pt-0.5 font-mono">
+              <span>Agregasi data query via Filament Widgets</span>
+              <span>Refreshed live</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Class <code>DashboardStats</code> mengembalikan 4 objek <code>Stat::make()</code> dengan dynamic query count.</div>
+      <div class="text-slate-500">StatsOverviewWidget::class</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Admin Panel Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 06</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 7: MODUL PENGIRIMAN ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 03 / Operations Resource</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Manajemen Pengiriman: Filament Table & Form Schema</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200">
+        App\Filament\Resources\PengirimanResource
+      </div>
+    </div>
+
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/admin/pengirimans
+        </div>
+      </div>
+
+      <div class="flex-1 flex overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-44 bg-slate-900 text-slate-300 p-2.5 flex flex-col justify-between text-xs border-r border-slate-800">
+          <div>
+            <div class="flex items-center gap-2 pb-2.5 mb-2 border-b border-slate-800">
+              <div class="w-5 h-5 bg-amber-500 rounded font-display font-bold text-slate-950 flex items-center justify-center text-[9px]">IL</div>
+              <span class="font-display font-bold text-white tracking-wide text-xs">Iben Logistic</span>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-dashboard"/></svg>
+                <span>Dashboard</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+                <span>Layanan</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-truck"/></svg>
+                <span>Armada</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+                <span>Pengiriman</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+                <span>Anggota Tim</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[9px] text-slate-400 font-mono">
+            Auth: <strong>Ibnu Anjang</strong>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 bg-slate-50 p-2.5 flex flex-col justify-between overflow-hidden">
+          <div class="flex justify-between items-center mb-1.5">
+            <div>
+              <div class="text-[9px] text-slate-500 font-mono">Dashboard &rsaquo; Pengiriman &rsaquo; List</div>
+              <h3 class="text-xs font-display font-bold text-slate-900">Daftar Manifest Pengiriman Barang</h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-[9px] font-semibold px-2 py-0.5 rounded flex items-center gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
+                Buat Pengiriman Baru
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-2 flex-1 overflow-hidden">
+            <!-- Table Side -->
+            <div class="col-span-7 bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col justify-between shadow-xs">
+              <div>
+                <div class="p-1.5 border-b border-slate-100 flex justify-between items-center gap-2">
+                  <div class="bg-slate-50 border border-slate-200 rounded px-2 py-0.5 text-[9px] text-slate-400 flex items-center gap-1.5 flex-1 font-mono">
+                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+                    <span>Cari pelanggan, kota tujuan...</span>
+                  </div>
+                  <div class="text-[9px] text-slate-600 border border-slate-200 px-2 py-0.5 rounded bg-white flex items-center gap-1 font-mono">
+                    <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-filter"/></svg>
+                    <span>Filter Status</span>
+                  </div>
+                </div>
+
+                <table class="w-full text-left text-[9px]">
+                  <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-medium">
+                    <tr>
+                      <th class="p-1 pl-2">Pelanggan</th>
+                      <th class="p-1">Tujuan</th>
+                      <th class="p-1">Layanan</th>
+                      <th class="p-1">Status</th>
+                      <th class="p-1">Tanggal</th>
+                      <th class="p-1 text-right pr-2">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 text-slate-700">
+                    <tr>
+                      <td class="p-1 pl-2 font-medium text-slate-900">PT Maju Makmur</td>
+                      <td class="p-1">Surabaya</td>
+                      <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Angkutan Darat</span></td>
+                      <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">Dalam Proses</span></td>
+                      <td class="p-1 text-slate-500 font-mono">11 Sep 2026</td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-medium text-slate-900">CV Nusantara Air</td>
+                      <td class="p-1">Medan</td>
+                      <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Kargo Udara</span></td>
+                      <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200">Selesai</span></td>
+                      <td class="p-1 text-slate-500 font-mono">10 Sep 2026</td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-medium text-slate-900">Berkah Sejahtera</td>
+                      <td class="p-1">Semarang</td>
+                      <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Angkutan Darat</span></td>
+                      <td class="p-1"><span class="badge-filament bg-rose-50 text-rose-700 border border-rose-200">Tertunda</span></td>
+                      <td class="p-1 text-slate-500 font-mono">09 Sep 2026</td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-medium text-slate-900">PT Samudera Logistik</td>
+                      <td class="p-1">Makassar</td>
+                      <td class="p-1"><span class="badge-filament bg-slate-100 text-slate-700">Kargo Laut</span></td>
+                      <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">Dalam Proses</span></td>
+                      <td class="p-1 text-slate-500 font-mono">08 Sep 2026</td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="p-1 border-t border-slate-100 flex justify-between items-center text-[8px] text-slate-500 font-mono">
+                <span>Total 12 record ditemukan</span>
+                <span>Page 1 of 3</span>
+              </div>
+            </div>
+
+            <!-- Form Side -->
+            <div class="col-span-5 bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-center border-b border-slate-100 pb-1 mb-1.5">
+                  <div class="text-xs font-display font-bold text-slate-900">Form Input Pengiriman</div>
+                  <span class="text-[8px] text-amber-600 font-mono">Create Action</span>
+                </div>
+
+                <div class="space-y-1.5 text-[9px]">
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Nama Pelanggan / Perusahaan <span class="text-rose-500">*</span></label>
+                    <input type="text" value="PT Mitra Sejati Logistik" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900" readonly>
+                  </div>
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Kota / Alamat Tujuan <span class="text-rose-500">*</span></label>
+                    <input type="text" value="Bandung, Jawa Barat" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900" readonly>
+                  </div>
+                  <div class="grid grid-cols-2 gap-1.5">
+                    <div>
+                      <label class="block text-slate-700 font-medium mb-0.5">Layanan <span class="text-rose-500">*</span></label>
+                      <select class="w-full border border-slate-200 rounded px-1 py-0.5 text-slate-900">
+                        <option>Angkutan Darat</option>
+                        <option>Kargo Udara</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-slate-700 font-medium mb-0.5">Status <span class="text-rose-500">*</span></label>
+                      <select class="w-full border border-slate-200 rounded px-1 py-0.5 text-slate-900">
+                        <option>Tertunda</option>
+                        <option>Dalam Proses</option>
+                        <option>Selesai</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Tanggal Pengiriman <span class="text-rose-500">*</span></label>
+                    <input type="text" value="2026-09-11" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900 font-mono" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-1.5 pt-1.5 border-t border-slate-100">
+                <span class="text-slate-600 border border-slate-200 text-[8px] font-medium px-2 py-0.5 rounded">Batal</span>
+                <span class="bg-amber-500 text-slate-950 text-[8px] font-semibold px-2.5 py-0.5 rounded">Simpan Data</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Kolom status menggunakan badge dinamis yang dicocokkan langsung dari nilai database ENUM/VARCHAR.</div>
+      <div class="text-slate-500">Filament\Tables\Columns\TextColumn::make('status')->badge()</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Operations Resource Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 07</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 8: MODUL ARMADA ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 03 / Master Data Resource</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Manajemen Armada Kendaraan: Table & Form Schema</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200">
+        App\Filament\Resources\ArmadaResource
+      </div>
+    </div>
+
+    <div class="browser-frame flex-1 flex flex-col mb-2">
+      <div class="browser-header">
+        <div class="flex gap-1.5">
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+        </div>
+        <div class="bg-white px-3 py-0.5 rounded text-[10px] text-slate-600 border border-slate-200 flex-1 max-w-sm font-mono text-center">
+          https://ibenlogistic.com/admin/armadas
+        </div>
+      </div>
+
+      <div class="flex-1 flex overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-44 bg-slate-900 text-slate-300 p-2.5 flex flex-col justify-between text-xs border-r border-slate-800">
+          <div>
+            <div class="flex items-center gap-2 pb-2.5 mb-2 border-b border-slate-800">
+              <div class="w-5 h-5 bg-amber-500 rounded font-display font-bold text-slate-950 flex items-center justify-center text-[9px]">IL</div>
+              <span class="font-display font-bold text-white tracking-wide text-xs">Iben Logistic</span>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-dashboard"/></svg>
+                <span>Dashboard</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+                <span>Layanan</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-truck"/></svg>
+                <span>Armada</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-shipping"/></svg>
+                <span>Pengiriman</span>
+              </div>
+              <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/60 text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+                <span>Anggota Tim</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[9px] text-slate-400 font-mono">
+            Auth: <strong>Ibnu Anjang</strong>
+          </div>
+        </div>
+
+        <div class="flex-1 bg-slate-50 p-2.5 flex flex-col justify-between overflow-hidden">
+          <div class="flex justify-between items-center mb-1.5">
+            <div>
+              <div class="text-[9px] text-slate-500 font-mono">Dashboard &rsaquo; Armada &rsaquo; List</div>
+              <h3 class="text-xs font-display font-bold text-slate-900">Manajemen Inventaris Kendaraan Operasional</h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-[9px] font-semibold px-2 py-0.5 rounded flex items-center gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
+                Tambah Unit Armada
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-2 flex-1 overflow-hidden">
+            <div class="col-span-7 bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col justify-between shadow-xs">
+              <div>
+                <div class="p-1.5 border-b border-slate-100 flex justify-between items-center gap-2">
+                  <div class="bg-slate-50 border border-slate-200 rounded px-2 py-0.5 text-[9px] text-slate-400 flex items-center gap-1.5 flex-1 font-mono">
+                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+                    <span>Cari plat nomor, driver, tipe...</span>
+                  </div>
+                  <div class="text-[9px] text-slate-600 border border-slate-200 px-2 py-0.5 rounded bg-white flex items-center gap-1 font-mono">
+                    <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-filter"/></svg>
+                    <span>Tipe Unit</span>
+                  </div>
+                </div>
+
+                <table class="w-full text-left text-[9px]">
+                  <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-medium">
+                    <tr>
+                      <th class="p-1 pl-2">Plat Nomor</th>
+                      <th class="p-1">Tipe Unit</th>
+                      <th class="p-1">Kapasitas</th>
+                      <th class="p-1">Driver</th>
+                      <th class="p-1">Status</th>
+                      <th class="p-1 text-right pr-2">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 text-slate-700">
+                    <tr>
+                      <td class="p-1 pl-2 font-mono font-semibold text-slate-900">B 9812 IL</td>
+                      <td class="p-1">Truk Tronton FL 260</td>
+                      <td class="p-1 font-mono">25 Ton</td>
+                      <td class="p-1">Budi Santoso</td>
+                      <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200">Tersedia</span></td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-mono font-semibold text-slate-900">B 9234 IL</td>
+                      <td class="p-1">Truk Box CDD Long</td>
+                      <td class="p-1 font-mono">5 Ton</td>
+                      <td class="p-1">Agus Supriyadi</td>
+                      <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700 border border-amber-200">Beroperasi</span></td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-mono font-semibold text-slate-900">B 1045 IL</td>
+                      <td class="p-1">Blind Van Cargo</td>
+                      <td class="p-1 font-mono">1.2 Ton</td>
+                      <td class="p-1">Dedi Haryanto</td>
+                      <td class="p-1"><span class="badge-filament bg-rose-50 text-rose-700 border border-rose-200">Servis</span></td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                    <tr>
+                      <td class="p-1 pl-2 font-mono font-semibold text-slate-900">B 7789 IL</td>
+                      <td class="p-1">Tractor Head 40ft</td>
+                      <td class="p-1 font-mono">32 Ton</td>
+                      <td class="p-1">Hendra Wijaya</td>
+                      <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700 border border-emerald-200">Tersedia</span></td>
+                      <td class="p-1 text-right pr-2 font-medium text-amber-600 hover:underline">Edit</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="p-1 border-t border-slate-100 flex justify-between items-center text-[8px] text-slate-500 font-mono">
+                <span>Total 8 unit kendaraan operasional</span>
+                <span>Sort: Nomor Plat ASC</span>
+              </div>
+            </div>
+
+            <!-- Form Side -->
+            <div class="col-span-5 bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-center border-b border-slate-100 pb-1 mb-1.5">
+                  <div class="text-xs font-display font-bold text-slate-900">Form Entri Armada</div>
+                  <span class="text-[8px] text-amber-600 font-mono">ArmadaForm</span>
+                </div>
+
+                <div class="space-y-1.5 text-[9px]">
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Nomor Plat Kendaraan <span class="text-rose-500">*</span></label>
+                    <input type="text" value="B 4521 IL" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900 font-mono" readonly>
+                  </div>
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Tipe Kendaraan <span class="text-rose-500">*</span></label>
+                    <select class="w-full border border-slate-200 rounded px-1 py-0.5 text-slate-900">
+                      <option>Truk Box (CDE / CDD)</option>
+                      <option>Truk Berat (Tronton / Trailer)</option>
+                      <option>Mobil Van / Blind Van</option>
+                    </select>
+                  </div>
+                  <div class="grid grid-cols-2 gap-1.5">
+                    <div>
+                      <label class="block text-slate-700 font-medium mb-0.5">Kapasitas Angkut <span class="text-rose-500">*</span></label>
+                      <input type="text" value="8 Ton" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900 font-mono" readonly>
+                    </div>
+                    <div>
+                      <label class="block text-slate-700 font-medium mb-0.5">Status Operasional <span class="text-rose-500">*</span></label>
+                      <select class="w-full border border-slate-200 rounded px-1 py-0.5 text-slate-900">
+                        <option>Tersedia</option>
+                        <option>Beroperasi</option>
+                        <option>Servis</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-slate-700 font-medium mb-0.5">Nama Driver / Pengemudi <span class="text-rose-500">*</span></label>
+                    <input type="text" value="Rahmat Hidayat" class="w-full border border-slate-200 rounded px-2 py-0.5 text-slate-900" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-1.5 pt-1.5 border-t border-slate-100">
+                <span class="text-slate-600 border border-slate-200 text-[8px] font-medium px-2 py-0.5 rounded">Batal</span>
+                <span class="bg-amber-500 text-slate-950 text-[8px] font-semibold px-2.5 py-0.5 rounded">Simpan Armada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Terhubung dengan relasi pengiriman untuk assignment driver dan pengecekan kapasitas muatan kendaraan.</div>
+      <div class="text-slate-500">Filament\Forms\Components\TextInput</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Master Data Resource Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 08</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 9: MODUL LAYANAN & ANGGOTA TIM ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 03 / Master Data Resource</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Manajemen Layanan & Personel Tim Perusahaan</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200">
+        ServiceResource & AnggotaTimResource
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-between gap-2.5 mb-2">
+      <!-- Service Resource -->
+      <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs flex-1 flex flex-col justify-between">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-1 mb-1.5">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-service"/></svg>
+            <div>
+              <div class="text-xs font-display font-bold text-slate-900">1. Master Layanan (ServiceResource)</div>
+              <div class="text-[8px] text-slate-500 font-mono">Katalog jenis kargo pengiriman yang aktif di web publik</div>
+            </div>
+          </div>
+          <span class="text-[8px] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-mono">Table: services</span>
+        </div>
+
+        <div class="grid grid-cols-12 gap-2">
+          <div class="col-span-8">
+            <table class="w-full text-left text-[9px]">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-medium">
+                <tr>
+                  <th class="p-1 pl-1.5">Nama Layanan</th>
+                  <th class="p-1 font-mono">Ikon Heroicon</th>
+                  <th class="p-1">Status</th>
+                  <th class="p-1">Deskripsi Singkat</th>
+                  <th class="p-1 text-right pr-1.5">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Angkutan Darat</td>
+                  <td class="p-1 font-mono text-slate-500">heroicon-o-truck</td>
+                  <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">Aktif</span></td>
+                  <td class="p-1 text-slate-500 truncate max-w-xs">Ekspedisi kargo darat antar provinsi jalur tol trans jawa</td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Kargo Udara</td>
+                  <td class="p-1 font-mono text-slate-500">heroicon-o-paper-airplane</td>
+                  <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">Aktif</span></td>
+                  <td class="p-1 text-slate-500 truncate max-w-xs">Layanan cepat pesawat kargo port-to-port reguler</td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Pergudangan</td>
+                  <td class="p-1 font-mono text-slate-500">heroicon-o-cube</td>
+                  <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">Aktif</span></td>
+                  <td class="p-1 text-slate-500 truncate max-w-xs">Fasilitas gudang transit sentral dan cross-docking</td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-span-4 bg-slate-50 border border-slate-200 rounded p-1.5 text-[8px] flex flex-col justify-between font-mono">
+            <div>
+              <div class="font-bold text-slate-800 mb-0.5">Skema Form Service:</div>
+              <div class="text-slate-600 space-y-0.5">
+                <div>&bull; <strong>nama:</strong> TextInput::make('nama')</div>
+                <div>&bull; <strong>ikon:</strong> Select::make('ikon')</div>
+                <div>&bull; <strong>status:</strong> Select::make('status')</div>
+                <div>&bull; <strong>deskripsi:</strong> Textarea::make()</div>
+              </div>
+            </div>
+            <div class="text-emerald-700 font-semibold mt-0.5">Status: Validated & Bound</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anggota Tim Resource -->
+      <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs flex-1 flex flex-col justify-between">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-1 mb-1.5">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><use href="#icon-team"/></svg>
+            <div>
+              <div class="text-xs font-display font-bold text-slate-900">2. Master Anggota Tim (AnggotaTimResource)</div>
+              <div class="text-[8px] text-slate-500 font-mono">Pengelolaan data personel struktural operasional</div>
+            </div>
+          </div>
+          <span class="text-[8px] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-mono">Table: anggota_tims</span>
+        </div>
+
+        <div class="grid grid-cols-12 gap-2">
+          <div class="col-span-8">
+            <table class="w-full text-left text-[9px]">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-medium">
+                <tr>
+                  <th class="p-1 pl-1.5">Nama Personel</th>
+                  <th class="p-1">Jabatan Struktural</th>
+                  <th class="p-1 font-mono">Email Kantor</th>
+                  <th class="p-1">Status</th>
+                  <th class="p-1 text-right pr-1.5">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Ibnu Anjang</td>
+                  <td class="p-1">Head of Engineering</td>
+                  <td class="p-1 font-mono text-slate-500">ibnu@ibenlogistic.com</td>
+                  <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">Aktif</span></td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Sarah Maulida</td>
+                  <td class="p-1">Operasional Manager</td>
+                  <td class="p-1 font-mono text-slate-500">sarah@ibenlogistic.com</td>
+                  <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">Aktif</span></td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+                <tr>
+                  <td class="p-1 pl-1.5 font-semibold text-slate-900">Dimas Prasetyo</td>
+                  <td class="p-1">Fleet Supervisor</td>
+                  <td class="p-1 font-mono text-slate-500">dimas@ibenlogistic.com</td>
+                  <td class="p-1"><span class="badge-filament bg-amber-50 text-amber-700">Cuti</span></td>
+                  <td class="p-1 text-right pr-1.5 text-amber-600 font-medium">Edit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-span-4 bg-slate-50 border border-slate-200 rounded p-1.5 text-[8px] flex flex-col justify-between font-mono">
+            <div>
+              <div class="font-bold text-slate-800 mb-0.5">Skema Form Personel:</div>
+              <div class="text-slate-600 space-y-0.5">
+                <div>&bull; <strong>nama:</strong> TextInput::make('nama')</div>
+                <div>&bull; <strong>jabatan:</strong> TextInput::make('jabatan')</div>
+                <div>&bull; <strong>email:</strong> TextInput::make('email')</div>
+                <div>&bull; <strong>status:</strong> Select [Aktif, Cuti]</div>
+              </div>
+            </div>
+            <div class="text-blue-700 font-semibold mt-0.5">Role Management Complete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anotasi -->
+    <div class="bg-slate-100 border border-slate-200 rounded p-1.5 text-[10px] text-slate-600 flex justify-between items-center font-mono">
+      <div><strong>Anotasi Penguji:</strong> Form input menggunakan validasi otomatis email dan string sanitization bawaan Filament PHP.</div>
+      <div class="text-slate-500">Filament\Forms\Components\Select::make('status')</div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Supporting Resource Specification</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 09</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 10: TRACEABILITY & SIGN-OFF ================= -->
+  <section class="page-sheet">
+    <div class="flex justify-between items-center border-b border-slate-200 pb-1.5 mb-2">
+      <div>
+        <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-widest">Section 04 / Quality Assurance</span>
+        <h2 class="text-base font-display font-bold text-slate-900">Matriks Keselarasan (Traceability) & Ringkasan Spesifikasi Sistem</h2>
+      </div>
+      <div class="text-[10px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-200">
+        Quality Gate: PASSED
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-between">
+      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs mb-2">
+        <div class="p-2 bg-slate-50 border-b border-slate-200 font-display font-bold text-xs text-slate-800">
+          Matriks Traceability: Pemetaan Komponen Desain Prototype ke File Source Code
+        </div>
+        <table class="w-full text-left text-[9px]">
+          <thead class="bg-slate-100 border-b border-slate-200 text-slate-600 font-semibold font-mono">
+            <tr>
+              <th class="p-1.5 pl-2.5">Komponen Desain UI</th>
+              <th class="p-1.5">File Implementasi Source Code</th>
+              <th class="p-1.5">Model / Database Table</th>
+              <th class="p-1.5">Status Traceability</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700 font-mono">
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Portal Publik (Hero, Layanan, Kontak)</td>
+              <td class="p-1 text-slate-600">resources/views/welcome.blade.php</td>
+              <td class="p-1 text-slate-600">services, armadas, pengirimans</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Portal Login Admin Terpusat</td>
+              <td class="p-1 text-slate-600">app/Providers/Filament/AdminPanelProvider.php</td>
+              <td class="p-1 text-slate-600">users (Bcrypt auth)</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Dashboard Widget Statistik</td>
+              <td class="p-1 text-slate-600">app/Filament/Widgets/DashboardStats.php</td>
+              <td class="p-1 text-slate-600">Query aggregate count()</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Manajemen Pengiriman (CRUD)</td>
+              <td class="p-1 text-slate-600">app/Filament/Resources/PengirimanResource.php</td>
+              <td class="p-1 text-slate-600">pengirimans</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Manajemen Armada Truk (CRUD)</td>
+              <td class="p-1 text-slate-600">app/Filament/Resources/ArmadaResource.php</td>
+              <td class="p-1 text-slate-600">armadas</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+            <tr>
+              <td class="p-1 pl-2.5 font-sans font-medium text-slate-900">Master Layanan & Anggota Tim</td>
+              <td class="p-1 text-slate-600">ServiceResource.php & AnggotaTimResource.php</td>
+              <td class="p-1 text-slate-600">services, anggota_tims</td>
+              <td class="p-1"><span class="badge-filament bg-emerald-50 text-emerald-700">100% Sesuai</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Technical Verification Summary (Menggantikan Kotak Tanda Tangan) -->
+      <div class="grid grid-cols-3 gap-3 pt-1">
+        <div class="border border-slate-200 rounded-lg p-3 bg-slate-50 flex flex-col justify-between">
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-1">Cakupan Modul Sistem</div>
+          <div class="text-xs font-display font-bold text-slate-900">4 Modul Operasional + 1 Portal Web</div>
+          <p class="text-[9px] text-slate-600 mt-1 leading-normal">
+            Seluruh komponen antarmuka terpetakan 1:1 terhadap skema database Eloquent dan controller Laravel.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-lg p-3 bg-slate-50 flex flex-col justify-between">
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-1">Design System Engine</div>
+          <div class="text-xs font-display font-bold text-slate-900">Native Filament PHP v3 Components</div>
+          <p class="text-[9px] text-slate-600 mt-1 leading-normal">
+            Mengadopsi arsitektur Livewire & Tailwind UI standar industri tanpa modifikasi visual yang tidak perlu.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-lg p-3 bg-slate-50 flex flex-col justify-between">
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-1">Status Verifikasi Desain</div>
+          <div class="text-xs font-display font-bold text-emerald-700 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Siap Implementasi & Pengujian
+          </div>
+          <p class="text-[9px] text-slate-600 mt-1 leading-normal">
+            Rancangan antarmuka telah diverifikasi selaras dengan controller serta database Iben Logistic.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
+      <div>Iben Logistic &bull; Matriks Keselarasan Prototype</div>
+      <div>Penyusun: <strong>Ibnu Anjang</strong></div>
+      <div>Sheet 10 (Selesai)</div>
+    </div>
+  </section>
+
+</body>
+</html>
