@@ -23,28 +23,35 @@ class FilamentTest extends TestCase
     public function test_service_resource_is_accessible(): void
     {
         $user = User::first();
-        $response = $this->actingAs($user)->get('/admin/services');
+        $response = $this->actingAs($user)->get('/admin/layanan');
         $response->assertStatus(200);
     }
 
     public function test_armada_resource_is_accessible(): void
     {
         $user = User::first();
-        $response = $this->actingAs($user)->get('/admin/armadas');
+        $response = $this->actingAs($user)->get('/admin/armada');
         $response->assertStatus(200);
     }
 
     public function test_pengiriman_resource_is_accessible(): void
     {
         $user = User::first();
-        $response = $this->actingAs($user)->get('/admin/pengirimen');
+        $response = $this->actingAs($user)->get('/admin/pengiriman');
         $response->assertStatus(200);
     }
 
     public function test_anggota_tim_resource_is_accessible(): void
     {
         $user = User::first();
-        $response = $this->actingAs($user)->get('/admin/anggota-tims');
+        $response = $this->actingAs($user)->get('/admin/anggota-tim');
+        $response->assertStatus(200);
+    }
+
+    public function test_galeri_resource_is_accessible(): void
+    {
+        $user = User::first();
+        $response = $this->actingAs($user)->get('/admin/galeri');
         $response->assertStatus(200);
     }
 }

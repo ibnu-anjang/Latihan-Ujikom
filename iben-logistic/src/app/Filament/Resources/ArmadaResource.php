@@ -17,6 +17,7 @@ class ArmadaResource extends Resource
 {
     protected static ?string $model = Armada::class;
 
+    protected static ?string $slug = 'armada';
     protected static ?string $navigationIcon = 'heroicon-o-truck';
     protected static ?string $modelLabel = 'Armada';
     protected static ?string $pluralModelLabel = 'Armada';

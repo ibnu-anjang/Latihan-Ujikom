@@ -17,6 +17,7 @@ class AnggotaTimResource extends Resource
 {
     protected static ?string $model = AnggotaTim::class;
 
+    protected static ?string $slug = 'anggota-tim';
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $modelLabel = 'Anggota Tim';
     protected static ?string $pluralModelLabel = 'Anggota Tim';

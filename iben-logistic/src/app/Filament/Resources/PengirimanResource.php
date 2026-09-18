@@ -17,6 +17,7 @@ class PengirimanResource extends Resource
 {
     protected static ?string $model = Pengiriman::class;
 
+    protected static ?string $slug = 'pengiriman';
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
     protected static ?string $modelLabel = 'Pengiriman';
     protected static ?string $pluralModelLabel = 'Pengiriman';

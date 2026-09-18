@@ -191,6 +191,17 @@ Gunakan kredensial berikut untuk masuk ke **Panel Admin**:
 | **Kata Sandi (Password)** | `password` |
 | **Peran (Role)** | Administrator Utama |
 
+### 📍 Rute & Endpoint Panel Admin (Clean Indonesian URLs)
+
+| Modul / Menu | URL Endpoint | Deskripsi |
+|---|---|---|
+| **Dashboard** | `http://localhost:8080/admin` | Dasbor ringkasan metrik statistik |
+| **Layanan** | `http://localhost:8080/admin/layanan` | Manajemen katalog jenis layanan logistik |
+| **Armada** | `http://localhost:8080/admin/armada` | Manajemen kendaraan armada & driver |
+| **Pengiriman** | `http://localhost:8080/admin/pengiriman` | Pemantauan data transaksi pengiriman kargo |
+| **Anggota Tim** | `http://localhost:8080/admin/anggota-tim` | Manajemen staf pimpinan & profil tim |
+| **Galeri Foto** | `http://localhost:8080/admin/galeri` | Manajemen dokumentasi foto fasilitas & operasional |
+
 ---
 
 ## 📁 Struktur Direktori Repositori
