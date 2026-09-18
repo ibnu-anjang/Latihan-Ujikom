@@ -85,6 +85,10 @@ Aplikasi ini memadukan **Landing Page publik modern** yang informatif untuk calo
 |:---:|:---:|
 | <img src="screenshots/04_menu_layanan.png" width="450"> | <img src="screenshots/07_menu_anggota_tim.png" width="450"> |
 
+| Manajemen Galeri Foto | Tampilan Landing Page Lengkap |
+|:---:|:---:|
+| <img src="screenshots/08_menu_galeri.png" width="450"> | <img src="screenshots/01_landing_page.png" width="450"> |
+
 </div>
 
 ---
@@ -230,6 +234,7 @@ Latihan-Ujikom/
 
 ## 👨‍💻 Kontributor & Lisensi
 
-- **Pengembang:** [Ibnu Anjang Al-Anwari](https://github.com/ibnu-anjang)
-- **Institusi:** SMK — Konsentrasi Keahlian Pengembangan Web / Rekayasa Perangkat Lunak
+- **Guru Pengampu:** Pak Hendra (Guru Mata Pelajaran Pemrograman Web)
+- **Pengembang / Siswa:** [Ibnu Anjang Al-Anwari](https://github.com/ibnu-anjang)
+- **Program Keahlian:** Rekayasa Perangkat Lunak / Pengembangan Web (XII PPLG)
 - **Lisensi:** Proyek ini didistribusikan di bawah lisensi [MIT License](LICENSE). Bebas digunakan sebagai referensi belajar dan pengembangan lebih lanjut.

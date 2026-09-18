@@ -41,28 +41,6 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 \App\Filament\Widgets\DashboardStats::class,
             ])
-            ->renderHook(
-                \Filament\View\PanelsRenderHook::HEAD_END,
-                fn (): \Illuminate\Support\HtmlString => new \Illuminate\Support\HtmlString('
-                    <style>
-                        /* Pastikan user menu tidak keluar layar */
-                        .fi-user-menu [x-ref="panel"] {
-                            max-width: min(15rem, calc(100vw - 1rem)) !important;
-                        }
-
-                        /* Pastikan filter dropdown dan column toggle tabel selalu terbuka ke arah kiri */
-                        .fi-ta-filters-dropdown,
-                        .fi-ta-col-toggle {
-                            position: relative !important;
-                        }
-                        .fi-ta-filters-dropdown [x-ref="panel"],
-                        .fi-ta-col-toggle [x-ref="panel"] {
-                            right: 0 !important;
-                            left: auto !important;
-                        }
-                    </style>
-                ')
-            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
